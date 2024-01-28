@@ -1,79 +1,88 @@
 //callback: es una funcion que pasamos como parametro a otra funcion
 
 function prueba(callback) {
-callback("pedro");
-
+  callback("pedro");
 }
 
 function decirNombre(nombre) {
-console.log(nombre);
-
+  console.log(nombre);
 }
 
 prueba(decirNombre);
 
-
-
 //esto seria lo mismo reducido:
 prueba(function decirNombre(nombre) {
-console.log(nombre);
+  console.log(nombre);
 });
-
 
 //tambien podemos codificarlo de esta manera:
 prueba(function (nombre) {
-console.log(nombre);
+  console.log(nombre);
 });
-
 
 //y tambien como una funcion flecha
 prueba((nombre) => {
-console.log(nombre);
+  console.log(nombre);
 });
 
 //y dejando solo una linia de codigo teniendo solo un parametro:
-prueba(nombre => console.log(nombre));
+prueba((nombre) => console.log(nombre));
 
 //vamos a crear una clase:
-class Persona{
-    constructor(nombre, apellido){
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }
+class Persona {
+  constructor(nombre, apellido) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+  }
 }
 
 console.log(new Persona("Fernando", "Herrera"));
 
 //ahora queremos crear a muchas personas:
 const datoPersonas = [
-    ["Juan", "Rodrigues"],
-    ["Marcelo", "Garcia"],
-    ["Jose", "Gonzalez"],
+  ["Juan", "Rodrigues"],
+  ["Marcelo", "Garcia"],
+  ["Jose", "Gonzalez"],
 ];
 const personas = [];
 
 for (let i = 0; i < datoPersonas.length; i++) {
-
-    personas[i] = new Persona(datoPersonas[i][0], datoPersonas[i][1]);
+  personas[i] = new Persona(datoPersonas[i][0], datoPersonas[i][1]);
 }
 console.log(personas);
 console.log(personas[0]);
 console.log(personas[1].nombre);
 
 //ahora vamos a crear una funcion para obtener el nombre:
-const obtenerPersona = (id, callback)=>{
-    if(personas[id] == undefined){
-        callback("Persona no encontrada");
-    }else{
-        callback(null, personas[id].nombre);
-    }
-}
+const obtenerPersona = (id, callback) => {
+  if (personas[id] == undefined) {
+    callback("Persona no encontrada");
+  } else {
+    callback(null, personas[id], id);
+  }
+};
+const obtenerApellido = (id, callback) => {
+  if (personas[id].apellido == undefined) {
+    callback("apellido no encontrado");
+  } else {
+    callback(null, personas[id].apellido);
+  }
+};
 
-obtenerPersona(2, (error, personas)=>{
-if(error){
+obtenerPersona(2, (error, personas, id) => {
+  if (error) {
     console.log(error);
+  } else {
+    console.log(personas.nombre);
+    obtenerApellido(id, (error, apellido) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(apellido);
+      }
+    });
+  }
+});
 
-}else{
-    console.log(personas);
-}
-})
+//ahora si quisieramos agregar otro parametro como la edad, tendriamos que hacer otro callback y seria muy engorroso
+//para esto se usan las promise
