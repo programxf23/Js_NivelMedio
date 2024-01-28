@@ -46,14 +46,34 @@ console.log(new Persona("Fernando", "Herrera"));
 
 //ahora queremos crear a muchas personas:
 const datoPersonas = [
-    ["Juan", "Rodriguid"],
+    ["Juan", "Rodrigues"],
     ["Marcelo", "Garcia"],
     ["Jose", "Gonzalez"],
 ];
 const personas = [];
 
-for (var i = 0; i < datoPersonas.length; i++) {
+for (let i = 0; i < datoPersonas.length; i++) {
 
     personas[i] = new Persona(datoPersonas[i][0], datoPersonas[i][1]);
 }
 console.log(personas);
+console.log(personas[0]);
+console.log(personas[1].nombre);
+
+//ahora vamos a crear una funcion para obtener el nombre:
+const obtenerPersona = (id, callback)=>{
+    if(personas[id] == undefined){
+        callback("Persona no encontrada");
+    }else{
+        callback(null, personas[id].nombre);
+    }
+}
+
+obtenerPersona(2, (error, personas)=>{
+if(error){
+    console.log(error);
+
+}else{
+    console.log(personas);
+}
+})
