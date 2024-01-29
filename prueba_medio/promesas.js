@@ -131,4 +131,23 @@ obtenerPersona(id).then((persona) => {
     })
     
   }
-  console.log(obtenerInformacion());
+ // obtenerInformacion().then(resultado => console.log(resultado));
+
+  //las promesas funcionan en async, osea en tiempo real, despues de 2 seg lo muestra, esperan a recibir la info y
+  //cuando la reciben ejecutan la operacion
+
+  //*********************************************************************************    */
+
+  //ahora para trabajar con await:
+
+const mostrarResultado = async ()=>{
+
+    resultado = await obtenerInformacion();
+    console.log(resultado);
+}
+
+mostrarResultado();
+
+
+//las funcionas asincronas nos sirven para mostrar los resultados de manera cronologica y no de manera aleatoria
+// el await no me permite ejecutar una operacion si la anterior no fue ejecutada
