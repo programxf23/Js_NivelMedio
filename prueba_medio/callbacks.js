@@ -28,6 +28,8 @@ prueba((nombre) => {
 //y dejando solo una linia de codigo teniendo solo un parametro:
 prueba((nombre) => console.log(nombre));
 
+
+
 //vamos a crear una clase:
 class Persona {
   constructor(nombre, apellido) {
