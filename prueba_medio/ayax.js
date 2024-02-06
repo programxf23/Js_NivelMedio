@@ -28,3 +28,20 @@ peticion.send();
 
 //si la peticion es 4 y el estatus es 200 esta todo perfecto
 // y de la forma anterior se trabajaba antes.
+
+//ahora:
+
+let peticion;
+if(window.XMLHttpRequest) peticion = new XMLHttpRequest();
+else peticion = new ActiveXObject("Microsoft.xmlhttp");
+
+peticion.addEventListener(load ()=>{
+    let respuesta;
+
+    if(peticion.status == 200) respuesta = peticion.response;
+    else respuesta = "Lo siento no se ha encontrado el recurso";
+    console.log(json.parse(respuesta).nombre)
+
+});
+peticion.open("GET", "/info.txt");
+peticion.send();
